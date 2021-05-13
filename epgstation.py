@@ -36,7 +36,8 @@ def retrieve_envvars():
             return raw
 
     def unixtime_str_to_datetime(unixtime_str):
-        return datetime.utcfromtimestamp(int(unixtime_str))
+        # for some reason we have to devide the unixtime by 1000...
+        return datetime.utcfromtimestamp(int(unixtime_str) // 1000)
 
     def milliseconds_str_to_timedelta(milliseconds_str):
         return timedelta(seconds=int(milliseconds_str) // 1000)
