@@ -83,6 +83,12 @@ def send_discord_webhook(webhook_url, payload):
     urllib.request.urlopen(req)
 
 
+def try_comma_int(number, fallback):
+    if number is None:
+        return fallback
+    return f"{number:,}"
+
+
 def build_payload(message, color=None, envvars=None, artifacts=False):
     if envvars is None:
         envvars = retrieve_envvars()
@@ -118,9 +124,9 @@ def build_payload(message, color=None, envvars=None, artifacts=False):
                 {
                     "name": "エラー/ドロップ/スクランブル",
                     "value": (
-                        f"`Error` {envvars['ERROR_CNT']:,}"
-                        f"`Drop` {envvars['DROP_CNT']:,}"
-                        f"`Scramble` {envvars['SCRAMBLING_CNT']:,}"
+                        f"`Error` {try_comma_int(envvars['ERROR_CNT'], 'N/A')}"
+                        f"`Drop` {try_comma_int(envvars['DROP_CNT'], 'N/A')}"
+                        f"`Scramble` {try_comma_int(envvars['SCRAMBLING_CNT'], 'N/A')}"
                     ),
                 },
             ]
