@@ -30,7 +30,11 @@ def retrieve_envvars():
     def get_envvar(key, castfn=None):
         raw = os.environ.get(key, None)
 
-        if raw is not None and castfn:
+        if raw is None or raw == "null":
+            # what if `null` is actually the value...?
+            return None
+
+        if castfn:
             return castfn(raw)
         else:
             return raw
