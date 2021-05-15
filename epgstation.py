@@ -182,7 +182,7 @@ def recording_prep_rec_failed(args):
 
 @notifier
 def recording_start(args):
-    return build_payload(":record_button: 録画開始", artifacts=True, color=0xFFFFCC)
+    return build_payload(":record_button: 録画開始", artifacts=False, color=0xFFFFCC)
 
 
 @notifier
