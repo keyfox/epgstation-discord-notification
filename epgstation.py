@@ -170,6 +170,13 @@ def reserve_update(args):
 
 @notifier
 def reserve_deleted(args):
+    reservation_end = envvars.get("ENDAT", None)
+    envvars = retrieve_envvars()
+    if reservation_end is not None:
+        current_time = datetime.now()
+        if reservation_end <= current_time:
+            # do nothing
+            return None
     return build_payload(":no_bell: 録画予約削除")
 
 
