@@ -148,6 +148,9 @@ def notifier(fn):
     @functools.wraps(fn)
     def wrapper(args):
         payload = fn(args)
+        if payload is None:
+            # Send nothing
+            return
         webhook_url = args.config["webhook_url"]
         send_discord_webhook(webhook_url, payload)
 
