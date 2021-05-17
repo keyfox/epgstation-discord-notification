@@ -197,7 +197,13 @@ def recording_start(args):
 
 @notifier
 def recording_finish(args):
-    return build_payload(":stop_button: 録画終了", artifacts=True, color=0x00FF00)
+    envvars = retrieve_envvars()
+    error_count = envvars.get("ERROR_CNT", 0)
+    drop_count = envvars.get("DROP_CNT", 0)
+    scrambling_count = envvars.get("SCRAMBLING_COUNT", 0)
+    disrupted = (errors_count + drop_count + scrambling_count) > 0
+    color = 0xFF9900 if disrupted else 0x00FF00
+    return build_payload(":stop_button: 録画終了", artifacts=True, color=color)
 
 
 @notifier
