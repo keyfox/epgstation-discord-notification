@@ -170,8 +170,8 @@ def reserve_update(args):
 
 @notifier
 def reserve_deleted(args):
-    reservation_end = envvars.get("ENDAT", None)
     envvars = retrieve_envvars()
+    reservation_end = envvars.get("ENDAT", None)
     if reservation_end is not None:
         current_time = datetime.now()
         if reservation_end <= current_time:
